@@ -19,6 +19,12 @@ def  draw1(screen):
                       text_w + 20, text_h + 20),
                      1)
 
+def draw_square(screen):
+    color = pygame.Color(50, 150, 50)
+    pygame.draw.rect(screen, color, (20, 20, 100, 100), 0)
+    hsv = color.hsva
+    color.hsva = (hsv[0], hsv[1], hsv[2] + 30, hsv[3])
+    pygame.draw.rect(screen, color, (10, 10, 100, 100), 0)
 
 
 if __name__ == '__main__':
@@ -41,6 +47,7 @@ if __name__ == '__main__':
 
         # RENDER YOUR GAME HERE
         draw1(screen)
+        draw_square(screen)
 
         # flip() the display to put your work on screen
         pygame.display.flip()
