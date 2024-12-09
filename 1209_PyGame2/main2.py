@@ -4,6 +4,9 @@ import pygame
 # pygame setup
 if __name__ == '__main__':
     pygame.init()
+    MYEVENTTYPE = pygame.USEREVENT + 1
+    pygame.time.set_timer(MYEVENTTYPE, 1000)
+
     size = width, height = 1280, 720
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
@@ -25,7 +28,10 @@ if __name__ == '__main__':
                 pygame.draw.circle(screen, "red", event.pos, 40)
                 pygame.draw.circle(screen, "red",  (event.pos[0], height - event.pos[1]), 40)
                 pygame.draw.circle(screen, "red", (width - event.pos[0], event.pos[1]), 40)
-                pygame.draw.circle(screen, "red", (event.pos[1], event.pos[0]), 40)
+                # pygame.draw.circle(screen, "red", (event.pos[0] - width, event.pos[1] - height), 40)
+            if event.type == MYEVENTTYPE:
+                print("Мое событие")
+
 
         # flip() the display to put your work on screen
         pygame.display.flip()
