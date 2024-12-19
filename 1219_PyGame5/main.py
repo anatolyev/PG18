@@ -11,6 +11,15 @@ def main():
     screen.fill("purple")
     clock = pygame.time.Clock()
     image = load_image('owls.png', -1)
+
+    robot = load_image('robot.png', -1)
+    image1 = pygame.transform.scale(robot, (500, 100))
+    screen.blit(image1, (100, 200))
+    image2 = pygame.transform.scale(robot, (100, 500))
+    screen.blit(image2, (400, 200))
+    image2 = pygame.transform.scale(robot, (500, 500))
+    screen.blit(image2, (700, 200))
+
     running = True
 
     while running:
