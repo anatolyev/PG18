@@ -1,6 +1,7 @@
 import os
 import sys
 import pygame
+from random import randrange
 
 
 def main():
@@ -10,12 +11,14 @@ def main():
     screen = pygame.display.set_mode(size)
     # Начинаем добавлять спрайты
     all_sprites = pygame.sprite.Group()
-    sprite = pygame.sprite.Sprite()
-    sprite.image = load_image("bomb.png")
-    sprite.rect = sprite.image.get_rect()
-    sprite.rect.x = 100
-    sprite.rect.y = 200
-    all_sprites.add(sprite)
+    image = load_image("bomb.png")
+    for _ in range(100):
+        sprite = pygame.sprite.Sprite(all_sprites)
+        sprite.image = image
+        sprite.rect = sprite.image.get_rect()
+        sprite.rect.x = randrange(width)
+        sprite.rect.y = randrange(height)
+        all_sprites.add(sprite)
 
     clock = pygame.time.Clock()
     running = True
