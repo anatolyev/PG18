@@ -3,6 +3,18 @@ import sys
 import pygame
 from random import randrange
 
+class Bomb(pygame.sprite.Sprite):
+    def __init__(self, group, width, height):
+        super().__init__(group)
+        self.image = load_image("bomb.png")
+        self.rect = self.image.get_rect()
+        self.rect.x = randrange(width)
+        self.rect.y = randrange(height)
+
+    def update(self, *args, **kwargs):
+        self.rect = self.rect.move(randrange(3) - 1,
+                                   randrange(3) - 1)
+
 
 def main():
     # pygame setup
@@ -11,14 +23,9 @@ def main():
     screen = pygame.display.set_mode(size)
     # Начинаем добавлять спрайты
     all_sprites = pygame.sprite.Group()
-    image = load_image("bomb.png")
+
     for _ in range(100):
-        sprite = pygame.sprite.Sprite(all_sprites)
-        sprite.image = image
-        sprite.rect = sprite.image.get_rect()
-        sprite.rect.x = randrange(width)
-        sprite.rect.y = randrange(height)
-        all_sprites.add(sprite)
+        Bomb(all_sprites, width, height)
 
     clock = pygame.time.Clock()
     running = True
@@ -32,6 +39,7 @@ def main():
         screen.fill("purple")
         # RENDER YOUR GAME HERE
         all_sprites.draw(screen)
+        all_sprites.update()
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
     pygame.quit()
