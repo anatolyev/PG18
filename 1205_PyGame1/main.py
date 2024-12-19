@@ -1,5 +1,5 @@
 # Документация:
-# python - m pygame.docs
+# python -m pygame.docs
 
 # Example file showing a basic pygame "game loop"
 import pygame
