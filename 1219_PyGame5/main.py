@@ -8,28 +8,27 @@ def main():
     pygame.init()
     size = width, height = (1280, 720)
     screen = pygame.display.set_mode(size)
-    screen.fill("purple")
+    # Начинаем добавлять спрайты
+    all_sprites = pygame.sprite.Group()
+    sprite = pygame.sprite.Sprite()
+    sprite.image = load_image("bomb.png")
+    sprite.rect = sprite.image.get_rect()
+    sprite.rect.x = 100
+    sprite.rect.y = 200
+    all_sprites.add(sprite)
+
     clock = pygame.time.Clock()
-    image = load_image('owls.png', -1)
-
-    robot = load_image('robot.png', -1)
-    image1 = pygame.transform.scale(robot, (500, 100))
-    screen.blit(image1, (100, 200))
-    image2 = pygame.transform.scale(robot, (100, 500))
-    screen.blit(image2, (400, 200))
-    image2 = pygame.transform.scale(robot, (500, 500))
-    screen.blit(image2, (700, 200))
-
     running = True
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                screen.blit(image, event.pos)
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            #
+        screen.fill("purple")
         # RENDER YOUR GAME HERE
-
+        all_sprites.draw(screen)
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
     pygame.quit()
