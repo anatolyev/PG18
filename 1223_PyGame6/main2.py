@@ -7,9 +7,6 @@ pygame.init()
 size = width, height = (789, 600)
 screen = pygame.display.set_mode(size)
 ALL_SPRITES = pygame.sprite.Group()
-HORIZONTAL_BORDERS = pygame.sprite.Group()
-VERTICAL_BORDERS = pygame.sprite.Group()
-
 
 def main():
     # pygame setup
