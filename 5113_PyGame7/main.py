@@ -2,7 +2,7 @@ from data.functions import *
 
 
 def main():
-    rules_screen()
+    menu()
 
 
 if __name__ == '__main__':
