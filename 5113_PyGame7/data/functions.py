@@ -8,8 +8,6 @@ import pygame_menu
 from pygame_menu.examples import create_example_window
 from typing import Tuple, Any
 
-
-
 # Внутренние зависимости:
 from data.config import *
 from data.classes import *
@@ -105,9 +103,10 @@ def load_level(filename):
 
 def game_cycle(user_name, difficulty):
     """Главный игровой цикл"""
-
+    print(difficulty)
     player, x, y = generate_level(load_level(LEVELS_LIST[difficulty]))
-
+    # Перед началом игрового цикла создадим камеру:
+    camera = Camera()
     running = True
     while running:
         for event in pygame.event.get():
@@ -124,10 +123,18 @@ def game_cycle(user_name, difficulty):
                         player.rect.y -= STEP
                     case pygame.K_DOWN:
                         player.rect.y += STEP
-
+        # изменяем ракурс камеры
+        camera.update(player)
+        # обновляем положение всех спрайтов
+        for sprite in all_sprites:
+            camera.apply(sprite)
         screen.fill(pygame.Color(0, 0, 0))
         tiles_group.draw(screen)
         player_group.draw(screen)
+
+        # Выводим имя игрока:
+        string_rendered = font.render(f'Игрок: {user_name}', 1, pygame.Color('white'))
+        screen.blit(string_rendered, string_rendered.get_rect())
 
         pygame.display.flip()
         clock.tick(FPS)
@@ -141,8 +148,10 @@ def set_difficulty(selected: Tuple, value: Any) -> None:
     print(f'Set difficulty to {selected[0]} ({value})')
     global DIFFICULTY
     DIFFICULTY = value
+    print("DIFFICULTY ", DIFFICULTY)
 
 def menu():
+    print("DIFFICULTY menu", DIFFICULTY)
     surface = create_example_window(GAME_NAME, SIZE)
     menu = pygame_menu.Menu(
         height=HEIGHT,
@@ -154,6 +163,6 @@ def menu():
     user_name = menu.add.text_input('Представься: ', default=GAME_NAME, maxchar=10)
     menu.add.selector('Сложность: ', [('Easy', 0), ('Hard', 1)], onchange=set_difficulty)
     menu.add.button('Правила', rules_screen)
-    menu.add.button('Играть', game_cycle, user_name.get_value(), DIFFICULTY)
+    menu.add.button('Играть', lambda: game_cycle(user_name.get_value(), DIFFICULTY))
     menu.add.button('Выход', terminate)
     menu.mainloop(surface)
