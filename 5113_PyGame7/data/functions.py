@@ -114,6 +114,16 @@ def game_cycle(user_name, difficulty):
             if event.type == pygame.QUIT:
                 running = False
                 break
+            if event.type == pygame.KEYDOWN:
+                match event.key:
+                    case pygame.K_LEFT:
+                        player.rect.x -= STEP
+                    case pygame.K_RIGHT:
+                        player.rect.x += STEP
+                    case pygame.K_UP:
+                        player.rect.y -= STEP
+                    case pygame.K_DOWN:
+                        player.rect.y += STEP
 
         screen.fill(pygame.Color(0, 0, 0))
         tiles_group.draw(screen)
