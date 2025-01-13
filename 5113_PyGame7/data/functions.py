@@ -39,17 +39,20 @@ def generate_level(level):
     tile_images = {
         'wall': load_image('box.png'),
         'empty': load_image('grass.png'),
-        'player': load_image('mar.png'),
     }
+
+    player_image = load_image('mar.png')
 
     for y in range(len(level)):
         for x in range(len(level[y])):
             match level[y][x]:
                 case '.': Tile(tile_images, 'empty', x, y)
                 case '#': Tile(tile_images, 'wall', x, y)
-                case "@": Tile(tile_images, 'player', x, y)
+                case "@":
+                    Tile(tile_images, 'empty', x, y)
+                    new_player = Player(player_image, x, y)
 
-    return None
+    return new_player, x, y
 
 
 def terminate():
@@ -103,7 +106,7 @@ def load_level(filename):
 def game_cycle(user_name, difficulty):
     """Главный игровой цикл"""
 
-    generate_level(load_level(LEVELS_LIST[difficulty]))
+    player, x, y = generate_level(load_level(LEVELS_LIST[difficulty]))
 
     running = True
     while running:
@@ -114,6 +117,7 @@ def game_cycle(user_name, difficulty):
 
         screen.fill(pygame.Color(0, 0, 0))
         tiles_group.draw(screen)
+        player_group.draw(screen)
 
         pygame.display.flip()
         clock.tick(FPS)
