@@ -6,7 +6,7 @@ FPS = 50
 SIZE = WIDTH, HEIGHT = 400, 300
 STEP = 50
 IMAGES = "images/"
-
+SOUNDS = "sounds/"
 
 # Конфигурации PyGame:
 pygame.init()
