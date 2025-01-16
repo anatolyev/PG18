@@ -30,7 +30,7 @@ def terminate():
     pygame.quit()
     sys.exit()
 
-def game_cycle(user_name, difficulty):
+def game_cycle():
     """Главный игровой цикл"""
 
 

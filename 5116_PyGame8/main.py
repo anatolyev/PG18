@@ -2,7 +2,7 @@ from data.functions import *
 
 
 def main():
-    menu()
+    game_cycle()
 
 
 if __name__ == '__main__':
