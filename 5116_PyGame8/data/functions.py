@@ -41,17 +41,19 @@ def create_particles(position):
     global part
     for _ in range(particle_count):
         part.append(Particle(fire, position, random.choice(numbers), random.choice(numbers)))
+    print(len(part))
 
 
 
 def game_cycle():
     """Главный игровой цикл"""
+    global part
+
     dragon = AnimatedSprite(load_image("dragon_sheet8x2.png"), 8, 2, 100, 100)
     dragon_count = 0
     sound1 = pygame.mixer.Sound(SOUNDS + "vineboom.mp3")
     vol = 1
     running = True
-    global part
     part = []
 
     while running:
@@ -72,7 +74,6 @@ def game_cycle():
                 sound1.set_volume(vol)
 
         screen.fill(pygame.Color(0, 0, 0))
-
         all_sprites.draw(screen)
         if dragon_count % 5 == 0:
             dragon.update()

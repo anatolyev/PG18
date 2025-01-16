@@ -54,5 +54,7 @@ class Particle(pygame.sprite.Sprite):
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
         # убиваем, если частица ушла за экран
-        if not self.rect.colliderect((0, 0, WIDTH, HEIGHT)):
+        if not self.rect.colliderect((0, 0,
+                                      pygame.display.Info().current_w,
+                                      pygame.display.Info().current_h)):
             self.kill()

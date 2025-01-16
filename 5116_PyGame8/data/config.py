@@ -23,6 +23,7 @@ font = pygame.font.Font(None, 30)
 pygame.key.set_repeat(200, 70)
 
 screen = pygame.display.set_mode(SIZE, RESIZABLE)
+
 clock = pygame.time.Clock()
 
 # Группы спрайтов
