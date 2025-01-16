@@ -31,23 +31,8 @@ def terminate():
     pygame.quit()
     sys.exit()
 
-
-def create_particles(position):
-    # количество создаваемых частиц
-    particle_count = 20
-    # возможные скорости
-    numbers = range(-5, 6)
-    fire = [load_image("star.png")]
-    global part
-    for _ in range(particle_count):
-        part.append(Particle(fire, position, random.choice(numbers), random.choice(numbers)))
-    print(len(part))
-
-
-
 def game_cycle():
     """Главный игровой цикл"""
-    global part
 
     dragon = AnimatedSprite(load_image("dragon_sheet8x2.png"), 8, 2, 100, 100)
     dragon_count = 0
@@ -63,8 +48,12 @@ def game_cycle():
                 break
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    # сгенерируем частицы разного размера
-                    create_particles(pygame.mouse.get_pos())
+                    # сгенерируем 20 частиц разного размера
+                    for _ in range(20):
+                        part.append(Particle([load_image("star.png")],
+                                             pygame.mouse.get_pos(),
+                                             random.choice(range(-5, 6)),
+                                             random.choice(range(-5, 6))))
                     channel = sound1.play()
                     sound1.set_volume(vol)
                 if event.button == 4:
@@ -72,7 +61,6 @@ def game_cycle():
                 if event.button == 5:
                     vol -= 0.1
                 sound1.set_volume(vol)
-
         screen.fill(pygame.Color(0, 0, 0))
         all_sprites.draw(screen)
         if dragon_count % 5 == 0:
@@ -80,8 +68,10 @@ def game_cycle():
             dragon_count = 0
         dragon_count += 1
         # all_sprites.update()
+        # Цикл для обновления всех частиц
         for p in part:
             p.update()
+            # Удаляем лишние частицы из списка
             if not p.rect.colliderect((0, 0,
                                        pygame.display.Info().current_w,
                                        pygame.display.Info().current_h)):
