@@ -82,6 +82,10 @@ def game_cycle():
         # all_sprites.update()
         for p in part:
             p.update()
+            if not p.rect.colliderect((0, 0,
+                                       pygame.display.Info().current_w,
+                                       pygame.display.Info().current_h)):
+                part.remove(p)
         pygame.display.flip()
         clock.tick(FPS)
     terminate()
