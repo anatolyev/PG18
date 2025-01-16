@@ -32,7 +32,7 @@ def terminate():
 
 def game_cycle():
     """Главный игровой цикл"""
-
+    dragon = AnimatedSprite(load_image("dragon_sheet8x2.png"), 8, 2, 100, 100)
 
     running = True
     while running:
@@ -42,6 +42,9 @@ def game_cycle():
                 break
 
         screen.fill(pygame.Color(0, 0, 0))
+
+        all_sprites.draw(screen)
+        all_sprites.update()
 
         pygame.display.flip()
         clock.tick(FPS)
