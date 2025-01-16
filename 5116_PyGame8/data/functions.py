@@ -46,6 +46,11 @@ def game_cycle():
                 if event.button == 1:
                     channel = sound1.play()
                     sound1.set_volume(vol)
+                if event.button == 4:
+                    vol += 0.1
+                if event.button == 5:
+                    vol -= 0.1
+                sound1.set_volume(vol)
 
         screen.fill(pygame.Color(0, 0, 0))
 
