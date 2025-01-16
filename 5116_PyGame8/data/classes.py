@@ -1,5 +1,6 @@
 import pygame
 from data.config import *
+import random
 
 class AnimatedSprite(pygame.sprite.Sprite):
     def __init__(self, sheet, columns, rows, x, y):
@@ -26,3 +27,32 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.cur_frame = (self.cur_frame + 1) % len(self.frames)
         self.image = self.frames[self.cur_frame]
 
+
+
+class Particle(pygame.sprite.Sprite):
+    def __init__(self, fire, pos, dx, dy):
+        super().__init__(all_sprites)
+
+        for scale in (5, 10, 20):
+            fire.append(pygame.transform.scale(fire[0], (scale, scale)))
+        self.image = random.choice(fire)
+        self.rect = self.image.get_rect()
+
+        # у каждой частицы своя скорость — это вектор
+        self.velocity = [dx, dy]
+        # и свои координаты
+        self.rect.x, self.rect.y = pos
+
+        # гравитация будет одинаковой (значение константы)
+        self.gravity = GRAVITY
+
+    def update(self):
+        # применяем гравитационный эффект:
+        # движение с ускорением под действием гравитации
+        self.velocity[1] += self.gravity
+        # перемещаем частицу
+        self.rect.x += self.velocity[0]
+        self.rect.y += self.velocity[1]
+        # убиваем, если частица ушла за экран
+        if not self.rect.colliderect((0, 0, WIDTH, HEIGHT)):
+            self.kill()

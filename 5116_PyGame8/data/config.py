@@ -8,6 +8,7 @@ SIZE = WIDTH, HEIGHT = 400, 300
 STEP = 50
 IMAGES = "images/"
 SOUNDS = "sounds/"
+GRAVITY = 0.25
 
 # Конфигурации PyGame:
 pygame.init()
